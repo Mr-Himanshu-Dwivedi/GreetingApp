@@ -5,7 +5,7 @@ import com.app.greetingapp.model.GreetingModel;
 import com.app.greetingapp.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class GreetingService {
@@ -25,18 +25,29 @@ public class GreetingService {
     private GreetingRepository greetingRepository;
 
     public GreetingModel createGreeting(String firstName, String lastName) {
-        GreetingModel greeting = new GreetingModel(0L,firstName, lastName);
-        greeting = greetingRepository.save(greeting); // Save greeting to repository (UC 4)
-        return greeting;
+        GreetingModel greeting = new GreetingModel(firstName, lastName);
+        return greetingRepository.save(greeting);
     }
 
     // UC 5 - Retrieve greeting by ID
     public GreetingModel getGreetingById(Long id) { // UC 5 - Retrieve greeting by ID
-        return greetingRepository.findById(id);
+        return greetingRepository.findById(id).orElse(null);
     }
 
     // UC 6 - Retrieve all greetings
     public List<GreetingModel> getAllGreetings() {
         return greetingRepository.findAll();
+    }
+
+    //UC7
+    public GreetingModel updateGreeting(Long id, String firstName, String lastName) {
+        Optional<GreetingModel> existingGreeting = greetingRepository.findById(id);
+        if (existingGreeting.isPresent()) {
+            GreetingModel greeting = existingGreeting.get();
+            greeting.setFirstName(firstName);
+            greeting.setLastName(lastName);
+            return greetingRepository.save(greeting);
+        }
+        return null;
     }
 }

@@ -29,14 +29,15 @@ public class GreetingController {
     @Autowired
     private GreetingService greetingService;
 
-    @GetMapping
-    public GreetingModel getGreeting(@RequestParam(required = false) String firstName,
-                                     @RequestParam(required = false) String lastName) {
+    // Create a new greeting (UC 7)
+    @PostMapping
+    public GreetingModel createGreeting(@RequestParam String firstName, @RequestParam String lastName) {
         return greetingService.createGreeting(firstName, lastName);
     }
 
+
     // UC 5 - New endpoint to find a greeting by ID
-    @GetMapping("/{id}") // UC 5 - New endpoint to find a greeting by ID
+    @GetMapping("/{id}")
     public GreetingModel getGreetingById(@PathVariable Long id) {
         return greetingService.getGreetingById(id);
     }
@@ -45,5 +46,11 @@ public class GreetingController {
     @GetMapping("/all")
     public List<GreetingModel> getAllGreetings() {
         return greetingService.getAllGreetings();
+    }
+
+    //UC 7 - New endpoint to update a greeting
+    @PutMapping("/{id}")
+    public GreetingModel updateGreeting(@PathVariable Long id,@RequestParam String firstName,@RequestParam String lastName) {
+        return greetingService.updateGreeting(id, firstName, lastName);
     }
 }

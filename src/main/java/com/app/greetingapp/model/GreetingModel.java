@@ -1,9 +1,17 @@
 package com.app.greetingapp.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "greetings")
 public class GreetingModel {
     private String firstName;
     private String lastName;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    public GreetingModel() {}
 
     //UC3
 //    public GreetingModel(String firstName, String lastName) {
@@ -12,8 +20,7 @@ public class GreetingModel {
 //    }
 
     //!--UC4 Starts here
-    public GreetingModel(Long id, String firstName, String lastName) {
-        this.id = id;
+    public GreetingModel(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
     }
