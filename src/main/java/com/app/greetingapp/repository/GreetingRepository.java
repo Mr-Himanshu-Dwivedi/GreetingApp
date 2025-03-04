@@ -15,4 +15,9 @@ public class GreetingRepository {
         greetingMap.put(greeting.getId(), greeting);
         return greeting;
     }
+
+    // UC 5 - Find greeting by ID
+    public GreetingModel findById(Long id) { // UC 5 - Find greeting by ID
+        return greetingMap.get(id);
+    }
 }
