@@ -5,6 +5,8 @@ import com.app.greetingapp.model.GreetingModel;
 import com.app.greetingapp.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Service
 public class GreetingService {
     //UC2
@@ -31,5 +33,10 @@ public class GreetingService {
     // UC 5 - Retrieve greeting by ID
     public GreetingModel getGreetingById(Long id) { // UC 5 - Retrieve greeting by ID
         return greetingRepository.findById(id);
+    }
+
+    // UC 6 - Retrieve all greetings
+    public List<GreetingModel> getAllGreetings() {
+        return greetingRepository.findAll();
     }
 }

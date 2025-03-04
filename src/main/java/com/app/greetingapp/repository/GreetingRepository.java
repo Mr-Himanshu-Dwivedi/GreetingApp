@@ -17,7 +17,12 @@ public class GreetingRepository {
     }
 
     // UC 5 - Find greeting by ID
-    public GreetingModel findById(Long id) { // UC 5 - Find greeting by ID
+    public GreetingModel findById(Long id) {
         return greetingMap.get(id);
+    }
+
+    // UC 6 - List all greetings
+    public List<GreetingModel> findAll() {
+        return new ArrayList<>(greetingMap.values());
     }
 }
