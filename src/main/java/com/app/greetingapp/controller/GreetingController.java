@@ -5,6 +5,8 @@ import com.app.greetingapp.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/greetings")
 public class GreetingController {
@@ -32,9 +34,16 @@ public class GreetingController {
                                      @RequestParam(required = false) String lastName) {
         return greetingService.createGreeting(firstName, lastName);
     }
+
     // UC 5 - New endpoint to find a greeting by ID
     @GetMapping("/{id}") // UC 5 - New endpoint to find a greeting by ID
     public GreetingModel getGreetingById(@PathVariable Long id) {
         return greetingService.getGreetingById(id);
+    }
+
+    //UC 6 - New endpoint to list all greetings
+    @GetMapping("/all")
+    public List<GreetingModel> getAllGreetings() {
+        return greetingService.getAllGreetings();
     }
 }
