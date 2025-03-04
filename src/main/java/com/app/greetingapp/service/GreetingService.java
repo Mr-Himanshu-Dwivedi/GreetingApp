@@ -39,7 +39,7 @@ public class GreetingService {
         return greetingRepository.findAll();
     }
 
-    //UC7
+    //UC7 - Editing greeting by ID
     public GreetingModel updateGreeting(Long id, String firstName, String lastName) {
         Optional<GreetingModel> existingGreeting = greetingRepository.findById(id);
         if (existingGreeting.isPresent()) {
@@ -49,5 +49,10 @@ public class GreetingService {
             return greetingRepository.save(greeting);
         }
         return null;
+    }
+
+    //UC8 - Deleting greeting by ID
+    public void deleteGreeting(Long id) {
+        greetingRepository.deleteById(id);
     }
 }

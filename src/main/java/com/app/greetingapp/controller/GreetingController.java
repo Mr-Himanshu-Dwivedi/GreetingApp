@@ -53,4 +53,10 @@ public class GreetingController {
     public GreetingModel updateGreeting(@PathVariable Long id,@RequestParam String firstName,@RequestParam String lastName) {
         return greetingService.updateGreeting(id, firstName, lastName);
     }
+
+    // UC 8 - Delete a greeting by Id
+    @DeleteMapping("/{id}")
+    public void deleteGreeting(@PathVariable Long id) {
+        greetingService.deleteGreeting(id);
+    }
 }
