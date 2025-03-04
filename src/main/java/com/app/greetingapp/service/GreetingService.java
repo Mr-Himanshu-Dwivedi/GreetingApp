@@ -22,9 +22,14 @@ public class GreetingService {
     @Autowired
     private GreetingRepository greetingRepository;
 
-    public String getGreetingMessage(String firstName, String lastName) {
-        GreetingModel greeting = new GreetingModel(null,firstName, lastName);
-        greetingRepository.save(greeting); // Save greeting to repository (UC 4)
-        return greeting.getMessage();
+    public GreetingModel createGreeting(String firstName, String lastName) {
+        GreetingModel greeting = new GreetingModel(0L,firstName, lastName);
+        greeting = greetingRepository.save(greeting); // Save greeting to repository (UC 4)
+        return greeting;
+    }
+
+    // UC 5 - Retrieve greeting by ID
+    public GreetingModel getGreetingById(Long id) { // UC 5 - Retrieve greeting by ID
+        return greetingRepository.findById(id);
     }
 }

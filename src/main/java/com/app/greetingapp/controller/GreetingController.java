@@ -1,11 +1,9 @@
 package com.app.greetingapp.controller;
 
+import com.app.greetingapp.model.GreetingModel;
 import com.app.greetingapp.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/greetings")
@@ -25,13 +23,18 @@ public class GreetingController {
 //        return greetingService.getGreetingMessage();
 //    }
 
-    //UC3
+    //UC3 and UC4
     @Autowired
     private GreetingService greetingService;
 
     @GetMapping
-    public String getGreeting(@RequestParam(required = false) String firstName,
-                              @RequestParam(required = false) String lastName) {
-        return greetingService.getGreetingMessage(firstName, lastName);
+    public GreetingModel getGreeting(@RequestParam(required = false) String firstName,
+                                     @RequestParam(required = false) String lastName) {
+        return greetingService.createGreeting(firstName, lastName);
+    }
+    // UC 5 - New endpoint to find a greeting by ID
+    @GetMapping("/{id}") // UC 5 - New endpoint to find a greeting by ID
+    public GreetingModel getGreetingById(@PathVariable Long id) {
+        return greetingService.getGreetingById(id);
     }
 }
