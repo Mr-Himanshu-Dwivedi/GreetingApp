@@ -33,4 +33,12 @@ public class AuthenticationService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found with email: " + email));
     }
 
+    public Optional<AuthUser> authenticateUser(String email, String password) {
+        Optional<AuthUser> user = authUserRepository.findByEmail(email);
+        if (user.isPresent() && passwordEncoder.matches(password, user.get().getPassword())) {
+            return user;
+        }
+        return Optional.empty();
+    }
+
 }
