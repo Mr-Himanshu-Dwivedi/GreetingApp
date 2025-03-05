@@ -1,17 +1,20 @@
 package com.app.greetingapp.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "greetings")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class GreetingModel {
-    private String firstName;
-    private String lastName;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public GreetingModel() {}
+    private String firstName;
+    private String lastName;
 
     //UC3
 //    public GreetingModel(String firstName, String lastName) {
@@ -25,7 +28,8 @@ public class GreetingModel {
         this.lastName = lastName;
     }
 
-    public Long getId() {
+    //    GETTER & SETTER
+/*    public Long getId() {
         return id;
     }
 
@@ -50,6 +54,9 @@ public class GreetingModel {
         this.lastName = lastName;
     }
 
+ */
+
+    //UC 9
     public String getMessage() {
         if (firstName != null && lastName != null) {
             return "Hello, " + firstName + " " + lastName + "!";

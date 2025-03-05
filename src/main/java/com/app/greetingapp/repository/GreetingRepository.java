@@ -4,7 +4,7 @@ import com.app.greetingapp.model.GreetingModel;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-//import java.util.*;
+import java.util.*;
 //
 //@Repository
 //public class GreetingRepository {
