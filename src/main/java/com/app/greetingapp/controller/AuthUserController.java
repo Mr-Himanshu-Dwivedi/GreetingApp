@@ -38,12 +38,25 @@ public class AuthUserController {
         }
     }
 
+    //UC 10
+//    @PostMapping("/login")
+//    public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String password) {
+//        Optional<AuthUser> user = authenticationService.authenticateUser(email, password);
+//        if (user.isPresent()) {
+//            return ResponseEntity.ok("Login successful!");
+//        }
+//        return ResponseEntity.badRequest().body("Invalid email or password!");
+//    }
+
+    //UC 11
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String password) {
-        Optional<AuthUser> user = authenticationService.authenticateUser(email, password);
-        if (user.isPresent()) {
-            return ResponseEntity.ok("Login successful!");
+        try {
+            String token = authenticationService.loginUser(email, password);
+            return ResponseEntity.ok("Bearer " + token);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ResponseEntity.badRequest().body("Invalid email or password!");
     }
+
 }

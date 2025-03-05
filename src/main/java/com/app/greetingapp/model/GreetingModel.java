@@ -57,6 +57,7 @@ public class GreetingModel {
  */
 
     //UC 9
+    @Transient
     public String getMessage() {
         if (firstName != null && lastName != null) {
             return "Hello, " + firstName + " " + lastName + "!";

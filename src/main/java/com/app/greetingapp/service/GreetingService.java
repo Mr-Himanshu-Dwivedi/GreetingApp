@@ -15,10 +15,12 @@ public class GreetingService {
 //    }
 
     //UC3
-//    public String getGreetingMessage(String firstName, String lastName) {
-//        GreetingModel greeting = new GreetingModel(firstName, lastName);
-//        return greeting.getMessage();
-//    }
+    public String getGreetingMessage(String firstName, String lastName) {
+        GreetingModel greeting = new GreetingModel(firstName, lastName);
+        return greeting.getMessage();
+    }
+
+
 
     //UC4
     @Autowired

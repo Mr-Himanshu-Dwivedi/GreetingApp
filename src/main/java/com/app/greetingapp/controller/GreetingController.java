@@ -3,6 +3,7 @@ package com.app.greetingapp.controller;
 import com.app.greetingapp.model.GreetingModel;
 import com.app.greetingapp.service.GreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,50 +12,46 @@ import java.util.List;
 @RequestMapping("/greetings")
 public class GreetingController {
 
-//    @GetMapping
-//    public String getGreeting() {
-//        return "Hello, World!";
-//    }
-
-    //UC2
-//    @Autowired
-//    private GreetingService greetingService;
-//
-//    @GetMapping
-//    public String getGreeting() {
-//        return greetingService.getGreetingMessage();
-//    }
-
-    //UC3 and UC4
     @Autowired
     private GreetingService greetingService;
 
-    // Create a new greeting (UC 7)
+
+    @GetMapping
+    public String getGreeting(@RequestParam(required = false) String firstName,
+                              @RequestParam(required = false) String lastName) {
+        return greetingService.getGreetingMessage(firstName, lastName);
+    }
+
+    // UC 7 - Create a new greeting
+    @PreAuthorize("isAuthenticated()")  // ✅ Requires JWT token
     @PostMapping
     public GreetingModel createGreeting(@RequestParam String firstName, @RequestParam String lastName) {
         return greetingService.createGreeting(firstName, lastName);
     }
 
-
-    // UC 5 - New endpoint to find a greeting by ID
+    // UC 5 - Get greeting by ID
+    @PreAuthorize("isAuthenticated()")  // ✅ Requires JWT token
     @GetMapping("/{id}")
     public GreetingModel getGreetingById(@PathVariable Long id) {
         return greetingService.getGreetingById(id);
     }
 
-    //UC 6 - New endpoint to list all greetings
+    // UC 6 - List all greetings
+    @PreAuthorize("isAuthenticated()")  // ✅ Requires JWT token
     @GetMapping("/all")
     public List<GreetingModel> getAllGreetings() {
         return greetingService.getAllGreetings();
     }
 
-    //UC 7 - New endpoint to update a greeting
+    // UC 7 - Update a greeting
+    @PreAuthorize("isAuthenticated()")  // ✅ Requires JWT token
     @PutMapping("/{id}")
-    public GreetingModel updateGreeting(@PathVariable Long id,@RequestParam String firstName,@RequestParam String lastName) {
+    public GreetingModel updateGreeting(@PathVariable Long id, @RequestParam String firstName, @RequestParam String lastName) {
         return greetingService.updateGreeting(id, firstName, lastName);
     }
 
-    // UC 8 - Delete a greeting by Id
+    // UC 8 - Delete a greeting
+    @PreAuthorize("isAuthenticated()")  // ✅ Requires JWT token
     @DeleteMapping("/{id}")
     public void deleteGreeting(@PathVariable Long id) {
         greetingService.deleteGreeting(id);
