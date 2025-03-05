@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthUserController {
@@ -34,5 +36,14 @@ public class AuthUserController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String password) {
+        Optional<AuthUser> user = authenticationService.authenticateUser(email, password);
+        if (user.isPresent()) {
+            return ResponseEntity.ok("Login successful!");
+        }
+        return ResponseEntity.badRequest().body("Invalid email or password!");
     }
 }
