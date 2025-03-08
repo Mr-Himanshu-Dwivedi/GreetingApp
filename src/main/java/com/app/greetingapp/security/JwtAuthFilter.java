@@ -1,5 +1,6 @@
 package com.app.greetingapp.security;
 
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +30,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String email = jwtUtil.extractEmail(token);
 
             if (email != null && jwtUtil.validateToken(token) && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = User.withUsername(email).password("").roles("USER").build();
+                //UC 12
+                Claims claims = jwtUtil.extractClaims(token);
+                String role = claims.get("role", String.class); // ✅ Extract role from JWT
+
+                UserDetails userDetails = User.withUsername(email).password("").roles(role).build();
+
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 

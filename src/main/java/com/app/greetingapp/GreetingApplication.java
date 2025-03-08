@@ -24,11 +24,18 @@ public class GreetingApplication {
 		return new BCryptPasswordEncoder();
 	}
 
+//	@Bean
+//	public String generateJwtSecretKey() throws NoSuchAlgorithmException {
+//		KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
+//		keyGen.init(256);
+//		SecretKey secretKey = keyGen.generateKey();
+//		return Base64.getEncoder().encodeToString(secretKey.getEncoded());
+//	}
+
+
 	@Bean
-	public String generateJwtSecretKey() throws NoSuchAlgorithmException {
-		KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
-		keyGen.init(256);
-		SecretKey secretKey = keyGen.generateKey();
-		return Base64.getEncoder().encodeToString(secretKey.getEncoded());
+	public String generateJwtSecretKey() {
+		String secret = "MySuperSecureSecretKeyForJWT12345"; // ✅ At least 32 characters
+		return Base64.getEncoder().encodeToString(secret.getBytes());
 	}
 }

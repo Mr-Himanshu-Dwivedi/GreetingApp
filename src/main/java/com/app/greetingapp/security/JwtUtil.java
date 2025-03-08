@@ -27,10 +27,19 @@ public class JwtUtil {
     public String generateToken(String email) {
         return Jwts.builder()
                 .subject(email)
+                .claim("role", "USER") // Include role in JWT claims
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key)
                 .compact();
+    }
+
+    public Claims extractClaims(String token) {
+        return Jwts.parser()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     public String extractEmail(String token) {
