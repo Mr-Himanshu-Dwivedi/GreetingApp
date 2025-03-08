@@ -26,7 +26,8 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frame -> frame.disable())) // Allow H2 Console UI
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/register", "/auth/login", "/auth/user", "/h2-console/**").permitAll() // Allow public access
-                        .requestMatchers("/greetings/**").authenticated()
+                        .requestMatchers("/greetings/**").hasRole("USER") // UC 12; Only users with "USER" role can access
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
